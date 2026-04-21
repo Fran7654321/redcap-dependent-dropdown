@@ -1,6 +1,6 @@
 # REDCap Dependent Dropdown
 
-Reusable JavaScript solution for creating **dependent dropdowns in REDCap** using an External Module such as **Shazam**.
+Reusable JavaScript solution for creating **dependent dropdown fields in REDCap** using an External Module such as **Shazam**.
 
 ## Quick start
 
