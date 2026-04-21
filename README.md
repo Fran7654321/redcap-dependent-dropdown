@@ -52,10 +52,10 @@ The script:
 ### 1. Add both fields to your REDCap instrument
 
 - **Controlling variable**  
-  Example: `especialidad`
+  Example: `specialty`
 
 - **Dependent variable**  
-  Example: `nombre_especialista`
+  Example: `specialist_name`
 
 The dependent variable should contain all possible dropdown choices in REDCap.
 
@@ -67,12 +67,12 @@ For example, if you are using Shazam, paste the code into the module's custom Ja
 
 #### A. Controlling variable
 ```javascript
-var variable_controladora = 'especialidad';
+var variable_controladora = 'specialty';
 ```
 
 #### B. Dependent variable
 ```javascript
-var variable_dependiente = 'nombre_especialista';
+var variable_dependiente = 'specialist_name';
 ```
 
 #### C. Mapping object
