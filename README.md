@@ -44,7 +44,7 @@ The script:
 
 ## Files
 
-- `redcap_dependent_dropdown.js`: reusable JavaScript template
+- [Download the JavaScript file](./redcap_dependent_dropdown.js)
 - ![Demo](redcap-dependent-dropdown.gif)
 
 ## How to use
