@@ -2,6 +2,19 @@
 
 Reusable JavaScript solution for creating **dependent dropdowns in REDCap** using an External Module such as **Shazam**.
 
+## Quick start
+
+1. Add both fields in REDCap:
+   - controlling variable
+   - dependent dropdown
+
+2. Paste the JavaScript into your External Module (e.g., Shazam)
+
+3. Edit:
+   - variable_controladora
+   - variable_dependiente
+   - mapa_opciones
+
 ## Overview
 
 REDCap does not natively support dynamic filtering of choices within the same dropdown field.
