@@ -205,16 +205,12 @@ Use an External Module such as:
 
 # Files
 
-## Files
+## Files and examples
 
 - [⬇ Download Explicit Mapping Script](https://raw.githubusercontent.com/Fran7654321/redcap-dependent-dropdown/main/explicit-mapping.js)
+- ![Demo](redcap-dependent-dropdown.gif)
 - [⬇ Download Hierarchical Code Script](https://raw.githubusercontent.com/Fran7654321/redcap-dependent-dropdown/main/hierarchical-code.js)
-
----
-
-# Example
-
-![Demo](redcap-dependent-dropdown.gif)
+- ![Demo](Hierarchical Code (multi-chain).gif)
 
 ---
 
