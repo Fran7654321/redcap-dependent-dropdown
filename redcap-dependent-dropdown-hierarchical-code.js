@@ -3,10 +3,13 @@ $(document).ready(function () {
     // =====================================================
     // CONFIGURATION
     // =====================================================
-    var levels = [
-        { field: 'region' },
-        { field: 'province' },
-        { field: 'city' }
+    var chains = [
+        {
+            levels: ['region', 'province', 'city']
+        },
+        {
+            levels: ['service', 'unit', 'room']
+        }
     ];
 
     var originalOptions = {};
@@ -87,53 +90,78 @@ $(document).ready(function () {
         }
     }
 
-    function updateFromLevel(parentIndex) {
-        for (var i = parentIndex; i < levels.length - 1; i++) {
-            var parentField = levels[i].field;
-            var childField = levels[i + 1].field;
+    function updateChainFromLevel(chain, parentIndex) {
+        for (var i = parentIndex; i < chain.levels.length - 1; i++) {
+            var parentField = chain.levels[i];
+            var childField = chain.levels[i + 1];
 
             filterChildField(parentField, childField);
         }
     }
 
-    function findLevelIndex(fieldName) {
-        for (var i = 0; i < levels.length; i++) {
-            if (levels[i].field === fieldName) {
-                return i;
+    function findChainAndLevel(fieldName) {
+        for (var c = 0; c < chains.length; c++) {
+            for (var i = 0; i < chains[c].levels.length; i++) {
+                if (chains[c].levels[i] === fieldName) {
+                    return {
+                        chainIndex: c,
+                        levelIndex: i
+                    };
+                }
             }
         }
-        return -1;
+        return null;
+    }
+
+    function refreshStoredValues() {
+        chains.forEach(function (chain) {
+            chain.levels.forEach(function (fieldName) {
+                previousValues[fieldName] = getValue(fieldName);
+            });
+        });
     }
 
     // =====================================================
     // INITIALIZATION
     // =====================================================
-    levels.forEach(function (level) {
-        storeOriginalOptions(level.field);
-        previousValues[level.field] = getValue(level.field);
+    chains.forEach(function (chain) {
+        chain.levels.forEach(function (fieldName) {
+            storeOriginalOptions(fieldName);
+            previousValues[fieldName] = getValue(fieldName);
+        });
     });
 
-    updateFromLevel(0);
+    chains.forEach(function (chain) {
+        updateChainFromLevel(chain, 0);
+    });
+
+    refreshStoredValues();
 
     // =====================================================
-    // EVENT-DRIVEN UPDATE ONLY
+    // EVENT-DRIVEN UPDATE
     // =====================================================
-    var selector = levels.map(function (level) {
-        return 'select[name="' + level.field + '"]';
-    }).join(', ');
+    var selector = chains
+        .flatMap(function (chain) {
+            return chain.levels.map(function (fieldName) {
+                return 'select[name="' + fieldName + '"]';
+            });
+        })
+        .join(', ');
 
     $(document).on('change', selector, function () {
         var fieldName = this.name;
-        var index = findLevelIndex(fieldName);
+        var match = findChainAndLevel(fieldName);
 
-        if (index !== -1) {
-            updateFromLevel(index);
+        if (!match) return;
 
-            // refresh stored values
-            levels.forEach(function (lvl) {
-                previousValues[lvl.field] = getValue(lvl.field);
-            });
+        var chain = chains[match.chainIndex];
+        var levelIndex = match.levelIndex;
+
+        if (levelIndex < chain.levels.length - 1) {
+            updateChainFromLevel(chain, levelIndex);
         }
+
+        refreshStoredValues();
     });
 
 });
