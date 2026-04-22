@@ -205,8 +205,10 @@ Use an External Module such as:
 
 # Files
 
-- `explicit-mapping.js`
-- `hierarchical-code.js`
+## Files
+
+- [⬇ Download Explicit Mapping Script](https://raw.githubusercontent.com/Fran7654321/redcap-dependent-dropdown/main/explicit-mapping.js)
+- [⬇ Download Hierarchical Code Script](https://raw.githubusercontent.com/Fran7654321/redcap-dependent-dropdown/main/hierarchical-code.js)
 
 ---
 
