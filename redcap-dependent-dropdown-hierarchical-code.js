@@ -3,6 +3,7 @@ $(document).ready(function () {
     // =====================================================
     // CONFIGURATION
     // =====================================================
+    // EDIT THIS ONLY: define your hierarchical chains
     var chains = [
         {
             levels: ['region', 'province', 'city']
