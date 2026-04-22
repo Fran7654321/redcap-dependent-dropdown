@@ -210,7 +210,7 @@ Use an External Module such as:
 - [⬇ Download Explicit Mapping Script](https://raw.githubusercontent.com/Fran7654321/redcap-dependent-dropdown/main/explicit-mapping.js)
 - ![Demo](redcap-dependent-dropdown.gif)
 - [⬇ Download Hierarchical Code Script](https://raw.githubusercontent.com/Fran7654321/redcap-dependent-dropdown/main/hierarchical-code.js)
-- ![Demo](Hierarchical Code (multi-chain).gif)
+- ![Demo](hierarchical_code_(multi_chain).gif)
 
 ---
 
