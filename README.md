@@ -88,36 +88,108 @@ This version uses **hierarchical codes** to define relationships automatically.
 
 It supports **one or multiple independent hierarchical chains** within the same form.
 
-Example:
-
-- `7` → Region  
-- `7.1` → Province  
-- `7.1.1` → City  
-
-No mapping object is required.
-
 ---
 
 ## How it works
 
 The script:
 - reads the selected value
-- identifies **direct children** based on code structure
-- filters the next dropdown in the chain
+- extracts the **hierarchical part of the code**
+- identifies **direct children**
+- filters the next dropdown
 - supports multiple independent chains
 
 ---
 
-## Requirements
+## Configuration
 
-- Fields must be **dropdown lists**
-- Each dropdown must contain **all options for its own level**
-- Each dropdown must contain **only one level**
-- Codes must follow a hierarchical structure:
+### Basic configuration
+
+    var separator = '|';        // defines hierarchy levels
+    var metadataSeparator = '::'; // optional (advanced use)
+
+---
+
+## Design principle: separate structure from data
+
+The script is based on a key principle:
+
+👉 **Use the value to represent hierarchy, not raw data**
+
+---
+
+## Coding structure examples
+
+### ✔ Basic hierarchical codes (recommended)
 
     7  
-    7.1  
-    7.1.1  
+    7|1  
+    7|1|1  
+    7|2  
+
+👉 Clean and simple hierarchy
+
+---
+
+### ⚠ Codes with formatting (may cause issues)
+
+Some systems use formatted codes:
+
+    7  
+    7.01  
+    7.01.01  
+    7.01.10.01  
+
+Here:
+- `.` is part of the format
+- not strictly a hierarchy separator
+
+👉 This can break the filtering logic if used directly as values
+
+---
+
+## 💡 Advanced solution: metadataSeparator
+
+If you need to preserve complex codes, you can separate:
+
+- hierarchy (used by the script)
+- additional code (kept intact)
+
+### Example
+
+    1::2026
+    1|1::01.01.2026
+    1|2::01.02.2026
+    1|1|1::01.01.2026.A
+
+👉 The script uses only the part before `::`
+
+| Value | Hierarchy used | Extra code |
+|------|--------------|-----------|
+| 1|1::01.01.2026 | 1|1 | 01.01.2026 |
+
+---
+
+## When should you use metadataSeparator?
+
+Use it only if:
+- you must keep an existing coding system
+- your codes contain formatting (e.g., dates, accounting codes)
+
+Otherwise:
+
+👉 **Do not use it**  
+👉 keep values simple
+
+---
+
+## Important rules
+
+- The `separator` defines hierarchy levels  
+- It must NOT appear inside level values  
+
+- `metadataSeparator` is optional  
+- It must appear at most once per value  
 
 ---
 
@@ -130,9 +202,9 @@ The script filters only:
 Example:
 
 - Selecting `7` shows:
-  - `7.1`, `7.2`
+  - `7|1`, `7|2`
 - NOT:
-  - `7.1.1`
+  - `7|1|1`
 
 ---
 
@@ -214,18 +286,6 @@ Use an External Module such as:
 
 ---
 
-# Reusable template
-
-These scripts can be adapted to:
-
-- region → city
-- category → item
-- service → provider
-- country → state/province
-- multi-level hierarchies
-
----
-
 # Limitations
 
 - This is a **UI-level solution**
@@ -243,13 +303,15 @@ Check:
 - field names match exactly
 - fields are dropdown lists
 - values are correctly coded
-- hierarchical codes are consistent
+- hierarchical structure is consistent
+
+---
 
 ## Works in one project but not another
 
 Some REDCap environments do not reliably trigger `change` events.
 
-👉 In that case, use a version with polling fallback.
+👉 In that case, use a version with polling fallback
 
 ---
 
@@ -257,8 +319,8 @@ Some REDCap environments do not reliably trigger `change` events.
 
 - Keep dropdown values documented
 - Use consistent coding systems
-- Avoid manual duplication of labels
-- Test edge cases (empty values, changes)
+- Avoid mixing hierarchy and raw data
+- Use `metadataSeparator` only when necessary
 
 ---
 
