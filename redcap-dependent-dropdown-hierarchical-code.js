@@ -1,9 +1,11 @@
 $(document).ready(function () {
 
     // =====================================================
-    // CONFIGURATION
+    // CONFIGURATION (EDIT THIS SECTION ONLY)
     // =====================================================
-    // EDIT THIS ONLY: define your hierarchical chains
+
+    var separator = '.';  // <-- Change this if needed (e.g., '|', '#')
+
     var chains = [
         {
             levels: ['region', 'province', 'city']
@@ -19,6 +21,7 @@ $(document).ready(function () {
     // =====================================================
     // HELPER FUNCTIONS
     // =====================================================
+
     function getSelect(fieldName) {
         return document.querySelector('select[name="' + fieldName + '"]');
     }
@@ -30,13 +33,13 @@ $(document).ready(function () {
 
     function countSegments(code) {
         if (!code) return 0;
-        return code.split('.').length;
+        return code.split(separator).length;
     }
 
     function isDirectChild(parentCode, childCode) {
         if (!parentCode || !childCode) return false;
 
-        var prefix = parentCode + '.';
+        var prefix = parentCode + separator;
 
         return (
             childCode.indexOf(prefix) === 0 &&
@@ -125,6 +128,7 @@ $(document).ready(function () {
     // =====================================================
     // INITIALIZATION
     // =====================================================
+
     chains.forEach(function (chain) {
         chain.levels.forEach(function (fieldName) {
             storeOriginalOptions(fieldName);
@@ -141,6 +145,7 @@ $(document).ready(function () {
     // =====================================================
     // EVENT-DRIVEN UPDATE
     // =====================================================
+
     var selector = chains
         .flatMap(function (chain) {
             return chain.levels.map(function (fieldName) {
