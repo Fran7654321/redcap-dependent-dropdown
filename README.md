@@ -105,7 +105,7 @@ The script:
 
 ### Basic configuration
 
-    var separator = '|';        // defines hierarchy levels
+    var separator = '.';        // defines hierarchy levels
     var metadataSeparator = '::'; // optional (advanced use)
 
 ---
@@ -123,9 +123,9 @@ The script is based on a key principle:
 ### ✔ Basic hierarchical codes (recommended)
 
     7  
-    7|1  
-    7|1|1  
-    7|2  
+    7.1  
+    7.1.1  
+    7.2  
 
 👉 Clean and simple hierarchy
 
