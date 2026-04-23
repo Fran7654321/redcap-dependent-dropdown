@@ -35,8 +35,9 @@ $(document).ready(function () {
     // same form.
     // =====================================================
 
-    var separator = '|';          // hierarchy separator
-    var metadataSeparator = '::'; // safe default
+var separator = '.';   // ⭐ recomendado
+// var separator = '|';
+var metadataSeparator = '::';
     var chains = [
         {
             levels: ['region', 'province', 'city']
